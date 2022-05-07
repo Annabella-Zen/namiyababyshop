@@ -1,0 +1,209 @@
+{% load static %}
+
+
+<body>
+        <div class="page-wrapper">
+            <header class="header header-9">
+                <div class="header-middle sticky-header">
+                    <div class="container">
+
+                        <div class="header-left">
+                            <a href="{% url 'store:index' %}" class="logo">
+                                <img src="{% static 'store/assets/images/demos/demo-12/logo.png' %}"
+                                     alt="Babyshop Logo"
+                                     width="82"
+                                     height="25">
+                            </a>
+                        </div>
+
+                        <!-- End .header-left -->
+                        <div class="header-right">
+                            <nav class="main-nav">
+                                <ul class="menu sf-arrows">
+
+                                    <!--Start .menu Bé Yêu-->
+                                    <li>
+                                        {% comment %} <a href="{% url 'store:subcategory' pk=1 %}" class="sf-with-ul">BÉ YÊU</a> {% endcomment %}
+                                        <a class="sf-with-ul">BÉ YÊU</a>
+                                        <div class="megamenu megamenu-md">
+                                            <div class="row no-gutters">
+                                                <div class="col-md-8">
+                                                    <div class="menu-col">
+                                                        <div class="row">
+
+                                                            <div class="col-md-4">
+                                                                <div class="menu-title">BÉ UỐNG - BÉ ĂN</div>
+                                                                <ul>
+                                                                    {% for item in beuong_items %}
+                                                                    <li>
+                                                                        <a href="{% url 'store:subcategory2' pk=item.0 %}">{{ item.1 }}</a>
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <div class="menu-title">BÉ MẶC</div>
+                                                                <ul>
+                                                                    {% for item in bemac_items %}
+                                                                    <li>
+                                                                        <a href="{% url 'store:subcategory2' pk=item.0 %}">{{ item.1 }}</a>
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                            
+                                                            <div class="col-md-4">
+                                                                <div class="menu-title">BÉ VỆ SINH</div>
+                                                                <ul>
+                                                                    {% for item in bevesinh_items %}
+                                                                    <li>
+                                                                        <a href="{% url 'store:subcategory2' pk=item.0 %}">{{ item.1 }}</a>
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="banner banner-overlay">
+                                                        <a href="{% url 'store:subcategory' pk=1 %}" class="banner banner-menu">
+                                                            <img src="{% static 'store/assets/images/menu/banner-1.png' %}"
+                                                                 alt="Banner">
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!--End .menu Bé Yêu-->
+
+                                    <!--Start .menu Mẹ Yêu-->
+                                    <li>
+                                        {% comment %} <a href="{% url 'store:subcategory' pk=2 %}" class="sf-with-ul">MẸ YÊU</a> {% endcomment %}
+                                        <a class="sf-with-ul">MẸ YÊU</a>
+                                        <div class="megamenu megamenu-md">
+                                            <div class="row no-gutters">
+                                                <div class="col-md-8">
+                                                    <div class="menu-col">
+                                                        <div class="row">
+
+                                                            <div class="col-md-4">
+                                                                <div class="menu-title">MẸ ĐẸP</div>
+                                                                <ul>
+                                                                    {% for item in medep_items %}
+                                                                    <li>
+                                                                        <a href="{% url 'store:subcategory2' pk=item.0 %}">{{ item.1 }}</a>
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <div class="menu-title">MẸ KHỎE</div>
+                                                                <ul>
+                                                                    {% for item in mekhoe_items %}
+                                                                    <li>
+                                                                        <a href="{% url 'store:subcategory2' pk=item.0 %}">{{ item.1 }}</a>
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <div class="menu-title">MẸ BẦU</div>
+                                                                <ul>
+                                                                    {% for item in mebau_items %}
+                                                                    <li>
+                                                                        <a href="{% url 'store:subcategory2' pk=item.0 %}">{{ item.1 }}</a>
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                            
+                                                            
+                                                            <!-- End .col-md-4 -->
+                                                        </div>
+                                                        <!-- End .row -->
+                                                    </div>
+                                                    <!-- End .menu-col -->
+                                                </div>
+                                                <!-- End .col-md-8 -->
+                                                <div class="col-md-4">
+                                                    <div class="banner banner-overlay">
+                                                        <a href="{% url 'store:subcategory' pk=2 %}" class="banner banner-menu">
+                                                            <img src="{% static 'store/assets/images/menu/banner-1.png' %}"
+                                                                 alt="Banner">
+                                                        </a>
+                                                    </div>
+                                                    <!-- End .banner banner-overlay -->
+                                                </div>
+                                                <!-- End .col-md-4 -->
+                                            </div>
+                                            <!-- End .row -->
+                                        </div>
+                                        <!-- End .megamenu megamenu-md -->
+                                    </li>
+                                    <!--End .menu Mẹ Yêu-->
+                                    
+                                </ul>
+                                <!-- End .menu -->
+                            </nav>
+                            <!-- End .main-nav -->
+                            <div class="header-search">
+                                <a class="search-toggle" role="button"><i class="icon-search"></i></a>
+                                <form  method="get" action="{% url 'store:search' %}">
+                                    <div class="header-search-wrapper">
+                                        <input type="text"
+                                               class="form-control"
+                                               name"product_name"
+                                               id="q"
+                                               placeholder="Nhập từ khóa cần tìm..."
+                                               >
+                                        <button type="submit"></button>
+                                    </div>
+                                    <!-- End .header-search-wrapper -->
+                                </form>
+                            </div>
+                            <!-- End .header-search -->
+                            <a href="wishlist.html" class="wishlist-link">
+                                <i class="icon-heart-o"></i>
+                            </a>
+                            <!--Cart-->   
+                            <a href="{% url 'cart:cart_detail' %}" class="wishlist-link">
+                                <i class="icon-shopping-cart"></i>
+                            </a>
+                            <!--End .Cart-->
+                            <!--Start .account-->
+                            <div class="dropdown cart-dropdown">
+                                {% if request.session.s_khach_hang %}
+                                    <div class="nav-item dropdown">
+                                        <a href="#" class="dropdown-cart-products" data-toggle="dropdown">{{ request.session.s_khach_hang.email }}</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="{% url 'customer:my-account' %}" class="dropdown-item">Tài khoản của tôi</a>
+                                            <a href="{% url 'customer:logout' %}" class="dropdown-item">Đăng xuất</a>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <a href="{% url 'customer:login' %}" class="wishlist-link">
+                                        <i class="icon-user"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <!--End .account-->
+                        </div>
+                        <!-- End .header-right -->
+                    </div>
+                    <!-- End .container -->
+                </div>
+                <!-- End .header-middle -->
+            </header>
+            <!-- End .header -->
+        </main>
+        <!-- End .main -->

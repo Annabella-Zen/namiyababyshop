@@ -1,0 +1,153 @@
+{% extends 'store/_Master.html' %}
+{% block title_tab %}Namiya - Baby Store | Tài khoản của tôi {% endblock %}
+{% load static %}
+{% load humanize %}
+{% block main_content %}
+
+
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url({% static 'store/assets/images/page-header-bg.jpg' %})">
+        		<div class="container">
+        			<h1 class="page-title">Tài khoản của tôi</h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a style="color:#6c757d" href="{% url 'store:index' %}">Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Tài khoản</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+            	<div class="dashboard">
+	                <div class="container">
+	                	<div class="row">
+	                		<aside class="col-md-4 col-lg-3">
+	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+								    {% comment %} <li class="nav-item">
+								        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
+								    </li> {% endcomment %}
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Đơn Mua</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Thông tin cá nhân</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Thay đổi mật khẩu</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" href="{% url 'customer:logout' %}">Đăng xuất</a>
+								    </li>
+								</ul>
+	                		</aside><!-- End .col-lg-3 -->
+
+	                		<div class="col-md-8 col-lg-9">
+	                			<div class="tab-content">
+								    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+								    	<p>Xin chào <span></span> 
+								    	<br>
+								    	Bạn có thể theo dõi đơn hàng ở  <a href="#tab-orders" class="tab-trigger-link link-underline" style="color: #FF3333">đây</a>
+								    </div><!-- .End .tab-pane -->
+
+								    <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+										<div class="table-responsive">	
+											<table class="table table-bordered text-center">
+												<thead class="thead-dark text-center">
+													<tr>
+													<th class="col-1">STT</th>
+													<th class="col-4">Mã đơn hàng</th>
+													<th class="col-4">Sản phẩm</th>
+													<th class="col-2">Tổng số tiền</th>
+													<th class="col-3">Trạng thái</th>
+													</tr>
+												</thead>
+												<tbody class="align-middle">
+													{% for item in order %}
+														{% with product=items.product %}
+															<tr>
+																<td>{{ forloop.counter }}</td>
+																<td>
+																	<img class="custom-img" src="{{ item.image.url }}" alt="{{ product }}" width="100px" height="auto">
+																	<p>{{ product }}</p>
+																</td>
+																<td>{{ item.order_number|floatformat:0|intcomma }}</td>
+																<td>{{ item.product_name }}</td>
+																<td>{{ item.total_price|floatformat:0|intcomma }}</td>
+																<td>{{ item.order_status }}</td>
+															</tr>
+														{% endwith %}
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+								    	<a href="{% url 'store:index' %}" class="btn btn-outline-primary-2"><span>TIẾP TỤC MUA HÀNG</span><i class="icon-long-arrow-right"></i></a>
+								    </div><!-- .End .tab-pane -->
+
+					
+								    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+								   
+								    	<h5>Thông tin cá nhân</h5>
+								    	<form method="post">
+			                				<div class="row">
+												{% csrf_token %}
+			                					<div class="col-sm-6">
+			                						<label>Họ *</label>
+			                						<input class="form-control" name="ho" type="text" placeholder="Vui lòng nhập họ" value="{{ request.session.s_khach_hang.ho }}" required>
+			                					</div><!-- End .col-sm-6 -->
+
+			                					<div class="col-sm-6">
+			                						<label>Tên *</label>
+			                						<input class="form-control" id="ten" name="ten" type="text" placeholder="Vui lòng nhập tên" value="{{ request.session.s_khach_hang.ten }}" required>
+			                					</div><!-- End .col-sm-6 -->
+			                				</div><!-- End .row -->
+
+		                					<label>Số điện thoại *</label>
+		        							<input id="dien_thoai" type="text" class="form-control" name="dien_thoai"  value="{{ request.session.s_khach_hang.dien_thoai }}" required>
+											
+											<label> Địa chỉ </label>
+		        							<input id="dia_chi" type="text" class="form-control" name="dia_chi"  value="{{ request.session.s_khach_hang.dia_chi }}" >
+
+											<label>Email *</label>
+		        							<input type="email" class="form-control" name="email" disabled type="text" value="{{ request.session.s_khach_hang.email }}" required>
+
+		                					<button type="submit" class="btn btn-outline-primary-2" name="btnCapNhat" value="Cập nhật tài khoản">
+			                					<span>Cập nhật</span>
+			            						<i class="icon-long-arrow-right"></i>
+			                				</button>
+			                			</form>
+								    </div><!-- .End .tab-pane -->
+
+								    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+										
+										
+
+										<h5>Đổi mật khẩu</h5>
+										<form method="post">
+											{% csrf_token %}
+											<div class="row">
+												<div class="col-md-12">
+													{{ form.mat_khau_hien_tai }}
+												</div>
+												<div class="col-md-6">
+													{{ form.mat_khau }}
+												</div>
+												<div class="col-md-6">
+													{{ form.xac_nhan_mat_khau }}
+												</div>
+												<div class="col-md-12">
+													<button class="btn btn-outline-primary-2" type="submit" name="btnChangePass" value="Đổi mật khẩu">Đổi mật khẩu</button>
+												</div>
+											</div>
+										</form>
+								    </div><!-- .End .tab-pane -->
+								</div>
+	                		</div><!-- End .col-lg-9 -->
+	                	</div><!-- End .row -->
+	                </div><!-- End .container -->
+                </div><!-- End .dashboard -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+ {% endblock %}

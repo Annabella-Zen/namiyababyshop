@@ -1,0 +1,124 @@
+{% extends 'store/_Master.html' %}
+{% block title_tab %}Namiya - Baby Store | Tài khoản của tôi {% endblock %}
+{% load static %}
+{% load humanize %}
+{% block main_content %}
+
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'store:index' %}">Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" >Liên hệ</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+            <div class="container">
+	        	<div class="page-header page-header-big text-center" style="background-image: url({% static 'store/assets/images/page-header-bg.jpg' %})">
+					<h1 class="page-title" >Liên Hệ</h1>
+	        	</div><!-- End .page-header -->
+            </div><!-- End .container -->
+
+            <div class="page-content pb-0">
+                <div class="container">
+                	<div class="row">
+                		<div class="col-lg-6 mb-2 mb-lg-0">
+                			<h2 class="title mb-1">Thông tin liên hệ</h2><!-- End .title mb-2 -->
+                			<p class="mb-3">Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+                			<div class="row">
+                				<div class="col-sm-7">
+                					<div class="contact-info">
+                						<h3>Văn phòng</h3>
+
+                						<ul class="contact-list">
+                							<li>
+                								<i class="icon-map-marker"></i>
+	                							Tầng 9, Etown2, 364 Cộng Hoà, Phường 13, Q. Tân Bình, TP Hồ Chí Minh
+	                						</li>
+                							<li>
+                								<i class="icon-phone"></i>
+                								<a href="tel:#">+84 000 0000 000</a>
+                							</li>
+                							<li>
+                								<i class="icon-envelope"></i>
+                								<a href="mailto:#">infobabystore@gmail.com</a>
+                							</li>
+                						</ul><!-- End .contact-list -->
+                					</div><!-- End .contact-info -->
+                				</div><!-- End .col-sm-7 -->
+
+                				<div class="col-sm-5">
+                					<div class="contact-info">
+                						<h3>Giờ làm việc</h3>
+
+                						<ul class="contact-list">
+                							<li>
+                								<i class="icon-clock-o"></i>
+	                							<span class="text-dark">Thứ 2 - Thứ 7</span> <br>8:00 -18:00
+	                						</li>
+                							<li>
+                								<i class="icon-calendar"></i>
+                								<span class="text-dark">Chủ nhật</span> <br>8:00 - 12:00
+                							</li>
+                						</ul><!-- End .contact-list -->
+                					</div><!-- End .contact-info -->
+                				</div><!-- End .col-sm-5 -->
+                			</div><!-- End .row -->
+                		</div><!-- End .col-lg-6 -->
+                		<div class="col-lg-6">
+                			<h2 class="title mb-1">Liên Hệ</h2>
+
+                			<form method="post" class="contact-form mb-3">
+                                {% csrf_token %}
+                				<div class="row">
+                					<div class="col-sm-6">
+                                        <label for="cname" class="sr-only">Tên</label>
+                						<input type="text" class="form-control" name="name" id="cname" placeholder="Vui lòng nhập tên" value="{{ Contact.name }}" required>
+                					</div><!-- End .col-sm-6 -->
+
+                					<div class="col-sm-6">
+                                        <label for="cemail" class="sr-only">Email</label>
+                						<input type="email" class="form-control" name="email" id="cemail" placeholder="Vui lòng nhập email" value="{{ Contact.email }}" required>
+                					</div><!-- End .col-sm-6 -->
+                				</div><!-- End .row -->
+
+                				<div class="row">
+                					<div class="col-sm-6">
+                                        <label for="cphone" class="sr-only">Số điện thoại</label>
+                						<input type="tel" class="form-control" name="phone_number" id="cphone" placeholder="Nhập số điện thoại" value="{{ Contact.phone_number }}">
+                					</div><!-- End .col-sm-6 -->
+
+                					<div class="col-sm-6">
+                                        <label for="csubject" class="sr-only">Tiêu đề</label>
+                						<input type="text" class="form-control"  name="subject" id="csubject" placeholder="Tiêu đề" value="{{ Contact.subject }}">
+                					</div><!-- End .col-sm-6 -->
+                				</div><!-- End .row -->
+
+                                <label for="cmessage" class="sr-only">Nội dung</label>
+                				<textarea class="form-control" cols="30" rows="4" id="cmessage" name="message" required placeholder="Vui lòng nhập nội dung..."  value="{{ Contact.message }}"> </textarea>
+
+                				<button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm" name="btnSendMessage" value="Send Message">
+                					<span>GỬI</span>
+            						<i class="icon-long-arrow-right"></i>
+                				</button>
+                			</form><!-- End .contact-form -->
+                		</div><!-- End .col-lg-6 -->
+                	</div><!-- End .row -->
+
+                	<hr class="mt-4 mb-5">
+
+                	
+                </div><!-- End .container -->
+            	<div id="map">
+
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.116422421998!2d106.63795475048222!3d10.802394392266136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529501a110951%3A0x2dd6e82f3f0ed848!2zRXRvd24gQ-G7mW5nIEjDsmE!5e0!3m2!1svi!2s!4v1651045415363!5m2!1svi!2s" style="width:100%; height:100%; border:0;"  allowfullscreen="True" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                </div><!-- End #map -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+    
+
+{% endblock %}
+
+
