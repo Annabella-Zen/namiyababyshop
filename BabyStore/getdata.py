@@ -2,7 +2,6 @@ import csv
 from bs4 import BeautifulSoup
 import requests
 import re
-from tkinter import W
 
 list_ten_sp = []
 list_chi_tiet_sp = []
