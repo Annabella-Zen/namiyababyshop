@@ -158,18 +158,14 @@
                             <!-- End .main-nav -->
                             <div class="header-search">
                                 <a class="search-toggle" role="button"><i class="icon-search"></i></a>
-                                <form  method="get" action="{% url 'store:search' %}">
+
+                                <form  method="get" action="{% url 'store:search' %}" >
                                     <div class="header-search-wrapper">
-                                        <input type="text"
-                                               class="form-control"
-                                               name"product_name"
-                                               id="q"
-                                               placeholder="Nhập từ khóa cần tìm..."
-                                               >
-                                        <button type="submit"></button>
+                                        <input type="text" name="condition" class="form-control" value="{{ condition }}" placeholder="Nhập từ khóa cần tìm...">
                                     </div>
                                     <!-- End .header-search-wrapper -->
                                 </form>
+
                             </div>
                             <!-- End .header-search -->
                             <a href="wishlist.html" class="wishlist-link">

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from tomlkit import key
 from store.models import SubCategory, Product, SubCategoryLevel2
 from django.core.paginator import Paginator
 from cart.cart import Cart
@@ -140,19 +141,16 @@ def subcategory2(request, pk):
         selected_subcategory2 = SubCategoryLevel2.objects.get(pk=pk)
         subcategory_name = selected_subcategory2.name + ' (' + str(len(products)) + ')'
 
-
-     # Lọc giá
+    # Lọc giá
     from_price = ''
     to_price = ''
-    product_name = ''
     if request.GET.get('from_price'):
         # Gán biến
         from_price = int(request.GET.get('from_price'))
         to_price = int(request.GET.get('to_price'))
-        product_name = request.GET.get('product_name')
 
-        if product_name != '':
-            products = Product.objects.filter(name__contains=product_name).order_by('price')
+        # if product_name != '':
+        #     products = Product.objects.filter(name__contains=product_name).order_by('price')
 
         products = [product for product in products if from_price <= product.price <= to_price]  # List comprehension
         subcategory_name = '%i sản phẩm được tìm thấy trong khoảng %s - %s' % (len(products), "{:,}".format(from_price), "{:,}".format(to_price))
@@ -170,7 +168,9 @@ def subcategory2(request, pk):
         'cart': cart,
         'from_price': from_price,
         'to_price': to_price,
-        'product_name': product_name,
+        'pk': pk,
+        'soluong_tong': str(len(products)),
+        'soluong_tren_page':str(len(products_pager)),
     })
 
 
@@ -224,45 +224,30 @@ def search(request):
     cart = Cart(request)
 
     # Đọc danh sách danh mục sản phẩm (subcategory list)
-    list_subcategory = SubCategory.objects.order_by('name')
+    list_subcategory2 = SubCategoryLevel2.objects.order_by('name')
 
     # Tìm kiếm
     products = []
-    result_search = ''
-    if request.GET.get('product_name'):
-        keyword = request.GET.get('product_name').strip()
+    # result_search = ''
+    if request.GET.get('condition'):
+        
+        keyword = request.GET.get('condition').strip()
+        print(keyword)
         products = Product.objects.filter(name__contains=keyword).order_by('-public_day')
-        result_search = '%i sản phẩm với từ khóa "%s"' % (len(products), keyword)
-
+        print(products)
+        #result_search = '%i sản phẩm với từ khóa "%s"' % (len(products), keyword)
+        subcategory_name = 'Số sản phẩm tìm thấy (' + str(len(products)) + ')'
         # Phân trang
         page = request.GET.get('page', 1)
         paginator = Paginator(products, 15)
         products_pager = paginator.page(page)
-
-
-    # Lọc giá
-    from_price = ''
-    to_price = ''
-    if request.GET.get('from_price'):
-        # Gán biến
-        from_price = int(request.GET.get('from_price'))
-        to_price = int(request.GET.get('to_price'))
-
-        # Chuyển trang về subcategory (id: 0)
-        base_url = reverse('store:subcategory', kwargs={'pk': 0}) 
-        query_string = urlencode({
-            'from_price': from_price,
-            'to_price': to_price,
-            'product_name': keyword,
-        })
-        url = '%s?%s' % (base_url, query_string)
-        return redirect(url)
-
-
+    
     return render(request, 'store/product-list.html', {
+        'list_subcategory2': list_subcategory2,
         'products': products_pager,
-        'list_subcategory': list_subcategory,
+        'subcategory_name': subcategory_name,
         'cart': cart,
-        'subcategory_name': result_search,
-        'product_name': keyword,
+        'soluong_tong': str(len(products)),
+        'soluong_tren_page':str(len(products_pager)),
+        'pk': 0,
     })

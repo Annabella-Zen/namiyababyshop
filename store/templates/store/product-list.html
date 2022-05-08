@@ -41,7 +41,7 @@
                                 <div class="toolbox">
                                     <div class="toolbox-left">
                                         <div class="toolbox-info">
-                                        Showing <span>9 of 56</span> Products
+                                        Showing <span>{{soluong_tren_page}} of {{soluong_tong}}</span> Products
                                     </div>
                                     <!-- End .toolbox-info -->
                                 </div>
@@ -189,44 +189,48 @@
 
                     <aside class="col-lg-3 order-lg-first">
                         <div class="sidebar sidebar-shop">
+                            
                             <div class="widget widget-clean">
-                                <a type="submit" href="#" style="color: #333333" class="sidebar-filter-clear">Xóa điều kiện lọc</a>
+                                {% comment %} <a type="submit" href="#" style="color: #333333" class="sidebar-filter-clear">Xóa điều kiện lọc</a> {% endcomment %}
+                                <a style="color: #333333" href="{% url 'store:subcategory2' pk %}">Xóa điều kiện lọc</a>
                             </div>
-                            <!-- End .widget widget-clean -->
-                            <div class="widget widget-collapsible">
-                                <h3 class="widget-title">
-                                    <a data-toggle="collapse"
-                                       href="#widget-1"
-                                       role="button"
-                                       aria-expanded="true"
-                                       aria-controls="widget-1">
-                                        Danh mục
-                                    </a>
-                                </h3>
-                                <!-- End .widget-title -->
-                                <div class="collapse show" id="widget-1">
-                                    <div class="widget-body">
-                                        <div class="filter-items filter-items-count">
-                                            {% for subcategory2 in list_subcategory2 %}
-                                                <div class="filter-item">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="{{subcategory2.id}}">
-                                                        <label class="custom-control-label" for="{{subcategory2.id}}">
-                                                            {{ subcategory2.name }}
-                                                        </label>
-                                                    </div>
-                                                    <!-- End .custom-checkbox -->
-                                                    {% comment %} <span class="item-count">{{count_products}}</span> {% endcomment %}
-                                                </div>
-                                                <!-- End .filter-item -->
-                                            {% endfor %}
+
+                            <form method="get">
+                                <!-- End .widget widget-clean -->
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse"
+                                        href="#widget-1"
+                                        role="button"
+                                        aria-expanded="true"
+                                        aria-controls="widget-1">
+                                            Danh mục
+                                        </a>
+                                    </h3>
+                                    <!-- End .widget-title -->
+                                    <div class="collapse show" id="widget-1">
+                                        
+                                        <div class="widget-body">
+                                            <div class="filter-items filter-items-count">
+                                                <nav class="navbar">
+                                                    <ul>
+                                                        {% for subcategory2 in list_subcategory2 %}
+                                                            <li >
+                                                                <a style="color:#c96;" href="{% url 'store:subcategory2' subcategory2.pk %}">
+                                                                    <i class="fa fa-angle-double-right"></i>{{ subcategory2.name }}
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                            <!-- End .filter-items -->
                                         </div>
-                                        <!-- End .filter-items -->
+                                        <!-- End .widget-body -->
                                     </div>
-                                    <!-- End .widget-body -->
+                                    <!-- End .collapse -->
                                 </div>
-                                <!-- End .collapse -->
-                            </div>
+                            </form>
                             <!-- End .widget -->
                             
                             
@@ -260,7 +264,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-1">
-                                                <button type="submit" class="button" name="product_name" value="{{ product_name }}" >Lọc</button>
+                                                <button type="submit" class="button">Lọc</button>
                                             </div>
                                             <!-- End #price-slider -->
                                         </div>
