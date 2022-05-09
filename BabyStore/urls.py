@@ -31,6 +31,7 @@ urlpatterns = [
     path('', include('cart.urls')),
     path('', include('customer.urls')),
     path('', include('contact.urls')),
+    path('', include('socialShare.urls')),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # path('api/', include(router.urls)),

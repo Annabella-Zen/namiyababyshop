@@ -6,3 +6,4 @@ feedparser
 numpy
 argon2-cffi
 pdfkit
+django-social-share

@@ -11,15 +11,9 @@ from customer.models import KhachHang
 def checkout(request):
     cart = Cart(request)
 
-    # đặt hàng
+    # Đặt hàng
     if request.POST.get('btnDatHang'):
-        khach_hang = KhachHang.objects.get_or_create(email=request.POST.get('email'))
-        # if khach_hang.ten == NULL:
-        #     khach_hang.ten = request.POST.get('ten')
-        # if khach_hang.dien_thoai == NULL:
-        #     khach_hang.dien_thoai = request.POST.get('dien_thoai')
-        #     khach_hang.dia_chi = request.POST.get('dia_chi')
-        #     khach_hang.save()
+        # khach_hang = KhachHang.objects.get_or_create(email=request.POST.get('email'))
         order = Order()
 
         # Gán giá trị

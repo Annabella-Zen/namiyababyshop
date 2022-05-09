@@ -120,19 +120,19 @@
                                     {% endfor %}
                                     <tr>
                                         <th colspan="4" style="text-align: right"><strong>Tạm tính:</strong></th>
-                                        <th colspan="1"  style="text-align: center"><strong>{{ cart.get_total_price|floatformat:0|intcomma }} đ</strong></th>
+                                        <th colspan="1" style="text-align: center"><strong>{{ cart.get_total_price|floatformat:0|intcomma }} đ</strong></th>
                                     </tr>
                                     <tr>
                                         <th colspan="4" style="text-align: right"><strong>Giảm giá:</strong></th>
-                                        <th colspan="1"  style="text-align: center"><strong>{{ cart.get_discount|floatformat:0|intcomma }} đ</strong></th>
+                                        <th colspan="1" style="text-align: center"><strong>{{ cart.get_discount|floatformat:0|intcomma }} đ</strong></th>
                                     </tr>
                                      <tr>
                                         <th colspan="4" style="text-align: right"><strong>Phí giao hàng:</strong></th>
-                                        <th colspan="1"  style="text-align: center"><strong>{{ 30000|floatformat:0|intcomma }} đ</strong></th>
+                                        <th colspan="1" style="text-align: center"><strong>{{ 30000|floatformat:0|intcomma }} đ</strong></th>
                                     </tr>
                                     <tr>
                                         <th colspan="4" style="text-align: right"><strong>Tổng cộng:</strong></th>
-                                        <th colspan="1"  style="text-align: center"><strong>{{ cart.get_final_total_price|floatformat:0|intcomma }} đ</strong></th>
+                                        <th colspan="1" style="text-align: center"><strong>{{ cart.get_final_total_price|floatformat:0|intcomma }} đ</strong></th>
                                     </tr>
                                 </tbody>
                             </table>

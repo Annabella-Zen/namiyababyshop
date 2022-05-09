@@ -1318,7 +1318,7 @@ blockquote.text-white cite span {
     flex: 1 1 auto;
     padding: .9rem 5rem .9rem 2.3rem;
     width: 100%;
-    margin: 0;
+    margin: -7px;
     height: 38px;
     line-height: 20px;
     border: none;
@@ -6096,8 +6096,8 @@ p {
 }
 
 .page-header h1 {
-    color: #333;
-    font: normal 400 3.2rem/1.1 "Poppins", sans-serif;
+    color: #4B4B4B;
+    font: normal 400 3.2rem/1.1 "Pangolin", sans-serif;
     letter-spacing: -.025em;
     margin-bottom: 0
 }

@@ -90,10 +90,7 @@
 
                                         <div class="social-icons social-icons-sm">
                                             <span class="social-label">Chia sẻ:</span>
-                                            <a href="https://www.facebook.com/" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                                            <a href="https://twitter.com/" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                                            <a href="https://www.instagram.com/" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                                            <a href="https://www.pinterest.com/" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                            {% post_to_facebook "https://babyshop-namiya.herokuapp.com/static/store/assets/images/video/poster-2.jpg"  "<i class='icon-facebook-f'></i>" %} 
                                         </div>
                                     </div><!-- End .product-details-footer -->
                                 </div><!-- End .product-details -->
@@ -198,10 +195,6 @@
                                         <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
                                     </a>
 
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    </div><!-- End .product-action-vertical -->
-
                                     <div class="product-action">
                                         <form method="post" action="{% url 'cart:buy_now' product.pk %}">
                                             {% csrf_token %}
@@ -223,7 +216,6 @@
                                         <div class="ratings">
                                             <div class="ratings-val" style="width: {{product.evaluate}};" ></div><!-- End .ratings-val -->
                                         </div><!-- End .ratings -->
-                                        {% comment %} <span class="ratings-text">{{ product.evaluate }}</span> {% endcomment %}
                                     </div><!-- End .rating-container -->
                                 </div><!-- End .product-body -->
                         </div><!-- End .product -->

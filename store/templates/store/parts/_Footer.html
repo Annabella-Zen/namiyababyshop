@@ -1,11 +1,12 @@
 {% load static %}       
+{% load social_share %}
        
        <!-- Start Footer -->
         <footer class="footer">
             <div class="footer-middle">
                 <div class="container">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-6">
                             <div class="widget widget-about">
                                 <img src="{% static 'store/assets/images/logo.png' %}"
                                      class="footer-logo"
@@ -13,20 +14,22 @@
                                      width="105"
                                      height="25">
                                 <p>
-                                    Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.
+                                    Đồ án cuối khóa Python. <br>
+                                    Web bán hàng gồm các chức năng: <br>
+                                    Xem danh sách sản phẩm, Lọc sản phẩm theo điều kiện, Xem chi tiết sản phẩm, Thêm vào giỏ hàng, Mua sản phẩm, <br>
+                                    Thanh toán, Liên hệ, Đăng ký thành viên, Quản lý đơn hàng, Trang Admin quản lý sản phẩm,...<br>
+                                    Chức năng share social og:image
                                 </p>
                                 <div class="social-icons">
-                                    <a href="https://www.facebook.com/" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                                    <a href="https://twitter.com/" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                                    <a href="https://www.instagram.com/" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                                    <a href="https://www.pinterest.com/" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                    {% comment %} {% post_to_twitter <text_to_post> <object_or_url> <link_text> <link_class> %} {% endcomment %}
+                                    {% post_to_facebook "https://babyshop-namiya.herokuapp.com/static/store/assets/images/video/poster-2.jpg"  "<i class='icon-facebook-f'></i>" %} 
                                 </div>
                                 <!-- End .soial-icons -->
                             </div>
                             <!-- End .widget about-widget -->
                         </div>
                         <!-- End .col-sm-6 col-lg-3 -->
-                        <div class="col">
+                        <div class="col-md-3">
                             <div class="widget">
                                 <h4 class="widget-title">
                                     Useful Links
@@ -44,7 +47,7 @@
                         </div>
                         <!-- End .col-sm-6 col-lg-3 -->
                         
-                        <div class="col">
+                        <div class="col-md-3">
                             <div class="widget">
                                 <h4 class="widget-title">
                                     Tài khoản của tôi
@@ -79,7 +82,7 @@
             <div class="footer-bottom">
                 <div class="container">
                     <p class="footer-copyright">
-                        Copyright © 2019 Molla Store. All Rights Reserved.
+                        Ann's Python Project © 2022
                     </p>
                     <!-- End .footer-copyright -->
                     <figure class="footer-payments">

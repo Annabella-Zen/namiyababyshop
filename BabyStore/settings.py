@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'cart',
     'rest_framework',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'django_social_share'
+    
 ]
 
 MIDDLEWARE = [
@@ -65,7 +67,9 @@ ROOT_URLCONF = 'BabyStore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
