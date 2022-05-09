@@ -38,11 +38,13 @@ def index(request):
     all_products = Product.objects.all()
 
     # Baby Items
+    be_products = Product.objects.filter(category_id=1).order_by('-public_day').all()
     beuong_items = list(SubCategoryLevel2.objects.filter(subcategory=1).values_list('id', 'name'))
     bemac_items = list(SubCategoryLevel2.objects.filter(subcategory=2).values_list('id', 'name'))
     bevesinh_items = list(SubCategoryLevel2.objects.filter(subcategory=3).values_list('id', 'name'))
 
     # Mom Items
+    me_products = Product.objects.filter(category_id=2).order_by('-public_day')
     medep_items = list(SubCategoryLevel2.objects.filter(subcategory=5).values_list('id', 'name'))
     mekhoe_items = list(SubCategoryLevel2.objects.filter(subcategory=6).values_list('id', 'name'))
     mebau_items = list(SubCategoryLevel2.objects.filter(subcategory=4).values_list('id', 'name'))
@@ -58,7 +60,9 @@ def index(request):
 
     return render(request, 'store/index.html', {
         'sub_category': sub_category,
-        'all_products': all_products[:31],
+        'all_products': all_products[:15],
+        'be_products': be_products[:21],
+        'me_products': me_products[:21],
 
         'beuong_items': beuong_items[:21],
         'bemac_items': bemac_items[:21],
@@ -231,9 +235,7 @@ def search(request):
     if request.GET.get('condition'):
         
         keyword = request.GET.get('condition').strip()
-        print(keyword)
         products = Product.objects.filter(name__contains=keyword).order_by('-public_day')
-        print(products)
         #result_search = '%i sản phẩm với từ khóa "%s"' % (len(products), keyword)
         subcategory_name = 'Số sản phẩm tìm thấy (' + str(len(products)) + ')'
         # Phân trang
