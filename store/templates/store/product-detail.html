@@ -3,6 +3,7 @@
 {% load static %}
 {% load humanize %}
 {% block main_content %}
+{% load social_share %}
 
     {% comment %} <!-- Menu Start -->
     {% include 'store/parts/_Menu.html' %}
@@ -27,7 +28,7 @@
                                 <div class="product-gallery product-gallery-vertical">
                                     <div class="row">
                                         <figure class="product-main-image">
-                                            <img id="product-zoom" src="{{ product.image.url }}" alt="{{ product.name }}">
+                                            <img id="product-zoom" src="{{ product.image.url }}" data-zoom-image="{{ product.image.url }}" alt="{{ product.name }}">
 
                                             <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                                                 <i class="icon-arrows"></i>
@@ -35,6 +36,17 @@
                                         </figure><!-- End .product-main-image -->
 
                                         <div id="product-zoom-gallery" class="product-image-gallery">
+                                            <a class="product-gallery-item active" href="#" data-image="{{ product.image.url }}"data-zoom-image="{{ product.image.url }}">
+                                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                            </a>
+                                            <a class="product-gallery-item" href="#" data-image="{{ product.image.url }}"data-zoom-image="{{ product.image.url }}">
+                                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="#" data-image="{{ product.image.url }}"data-zoom-image="{{ product.image.url }}">
+                                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                            </a>
+
                                             <a class="product-gallery-item" href="#" data-image="{{ product.image.url }}"data-zoom-image="{{ product.image.url }}">
                                                 <img src="{{ product.image.url }}" alt="{{ product.name }}">
                                             </a>
@@ -77,9 +89,6 @@
                                             
                                             </div><!-- End .details-action-col -->
                                         </form>
-                                        <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Yêu thích</span></a>
-                                        </div><!-- End .details-action-wrapper -->
                                     </div><!-- End .product-details-action -->
 
                                     <div class="product-details-footer">
@@ -90,7 +99,9 @@
 
                                         <div class="social-icons social-icons-sm">
                                             <span class="social-label">Chia sẻ:</span>
-                                            {% post_to_facebook "https://babyshop-namiya.herokuapp.com/static/store/assets/images/video/poster-2.jpg"  "<i class='icon-facebook-f'></i>" %} 
+                                            <div class="product-cat">
+                                                {% post_to_facebook "https://babyshop-namiya.herokuapp.com/"  "<i class='icon-facebook-f'></i>" %} 
+                                            </div>
                                         </div>
                                     </div><!-- End .product-details-footer -->
                                 </div><!-- End .product-details -->
