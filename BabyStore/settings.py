@@ -31,7 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['babyshop-namiya.herokuapp.com']
 
 # Lỗi CSRF verification failed. Request aborted.
-CSRF_TRUSTED_ORIGINS = ['https://babyshop-namiya.herokuapp.com/']
+CSRF_TRUSTED_ORIGINS = ['https://babyshop-namiya.herokuapp.com']
 
 
 
