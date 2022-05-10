@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-4*l$^cs6gbyfp1&w7dcsw#psav#j^mr1@d5ftrh)uvgnnl8+jo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['babyshop-namiya.herokuapp.com']
+ALLOWED_HOSTS = ['babyshop-namiya.herokuapp.com', '127.0.0.1']
 
 # Lỗi CSRF verification failed. Request aborted.
 CSRF_TRUSTED_ORIGINS = ['https://babyshop-namiya.herokuapp.com']

@@ -8,10 +8,10 @@ list_chi_tiet_sp = []
 list_ten_hinh = []
 list_gia = []
 
-# for i in range(1,5):
-page_link = "https://bibomart.com.vn/be-mac.html"
-page_response = requests.get(page_link)
-page_content = BeautifulSoup(page_response.content, 'html.parser')
+for i in range(1,2):
+    page_link = "https://bibomart.com.vn/sua-nuoc-cac-loai.html"
+    page_response = requests.get(page_link)
+    page_content = BeautifulSoup(page_response.content, 'html.parser')
 
 
 #Tên sản phẩm
@@ -35,7 +35,7 @@ for ten_hinh in ds_ten_hinh:
 
 
 
-
+#Giá sp
 ds_gia = page_content.find_all('span', attrs={'class': 'price-wrapper'})
 for gia in ds_gia:
     list_gia.append(gia['data-price-amount'])
@@ -63,7 +63,7 @@ dict_products = {
     'price': list_gia,
     'description': list_chi_tiet_sp
 }
-with open('BabyStore/du_lieu/bibo-baby-clothes.csv', 'w', encoding='utf-8') as f:
+with open('BabyStore/du_lieu/sua-nuoc.csv', 'w', encoding='utf-8') as f:
     writer = csv.writer(f)
     writer.writerow(dict_products.keys())
     writer.writerows(zip(*dict_products.values()))

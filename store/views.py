@@ -35,7 +35,7 @@ def index(request):
     
     cart = Cart(request)
     sub_category = SubCategory.objects
-    all_products = Product.objects.all()
+    all_products = Product.objects.order_by('-public_day').all()
 
     # Baby Items
     be_products = Product.objects.filter(category_id=1).order_by('-public_day').all()
