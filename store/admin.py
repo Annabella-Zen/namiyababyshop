@@ -1,5 +1,3 @@
-from django.contrib import admin
-
 # Register your models here.
 from django.contrib import admin
 from store.models import *
@@ -19,7 +17,6 @@ class ProductAdmin(admin.ModelAdmin):
     exclude = ('public_day', 'viewed')
 
     # Hiển thị trên danh sách
-    # list_display = ('name', 'price', 'public_day', 'viewed')
     list_display = ('e_name', 'e_price', 'e_public_day', 'e_viewed', 'e_image')
 
     # Lọc
