@@ -38,13 +38,13 @@ def index(request):
     all_products = Product.objects.order_by('-public_day').all()
 
     # Baby Items
-    be_products = Product.objects.filter(category_id=1).order_by('-public_day').all()
+    be_products = Product.objects.filter(category_id=1).order_by('-viewed').all()
     beuong_items = list(SubCategoryLevel2.objects.filter(subcategory=1).values_list('id', 'name'))
     bemac_items = list(SubCategoryLevel2.objects.filter(subcategory=2).values_list('id', 'name'))
     bevesinh_items = list(SubCategoryLevel2.objects.filter(subcategory=3).values_list('id', 'name'))
 
     # Mom Items
-    me_products = Product.objects.filter(category_id=2).order_by('-public_day')
+    me_products = Product.objects.filter(category_id=2).order_by('-viewed')
     medep_items = list(SubCategoryLevel2.objects.filter(subcategory=5).values_list('id', 'name'))
     mekhoe_items = list(SubCategoryLevel2.objects.filter(subcategory=6).values_list('id', 'name'))
     mebau_items = list(SubCategoryLevel2.objects.filter(subcategory=4).values_list('id', 'name'))
