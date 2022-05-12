@@ -30,13 +30,13 @@
 								        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
 								    </li> {% endcomment %}
 								    <li class="nav-item">
-								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Đơn Mua</a>
+								        <a class="nav-link {{orders_status}}" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Đơn Mua</a>
 								    </li>
 								    <li class="nav-item">
-								        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Thông tin cá nhân</a>
+								        <a class="nav-link {{address_status}}" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Thông tin cá nhân</a>
 								    </li>
 								    <li class="nav-item">
-								        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Thay đổi mật khẩu</a>
+								        <a class="nav-link {{pass_status}}" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Thay đổi mật khẩu</a>
 								    </li>
 								    <li class="nav-item">
 								        <a class="nav-link" href="{% url 'customer:logout' %}">Đăng xuất</a>
@@ -46,13 +46,14 @@
 
 	                		<div class="col-md-8 col-lg-9">
 	                			<div class="tab-content">
-								    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+
+								    {% comment %} <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
 								    	<p>Xin chào <span></span> 
 								    	<br>
 								    	Bạn có thể theo dõi đơn hàng ở  <a href="#tab-orders" class="tab-trigger-link link-underline" style="color: #FF3333">đây</a>
-								    </div><!-- .End .tab-pane -->
+								    </div><!-- .End .tab-pane --> {% endcomment %}
 
-								    <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+								    <div class="tab-pane fade tab-orders {{orders_status}}" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
 										<div class="table-responsive">	
 											<table class="table table-bordered text-center">
 												<thead class="thead-dark text-center">
@@ -87,12 +88,18 @@
 								    </div><!-- .End .tab-pane -->
 
 					
-								    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+								    <div class="tab-pane fade {{address_status}}" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
 								   
 								    	<h5>Thông tin cá nhân</h5>
 								    	<form method="post">
+											
 			                				<div class="row">
 												{% csrf_token %}
+
+												<div class="col-md-12">
+													{{chuoi_kq_change_diachi|safe}}
+												</div>
+
 			                					<div class="col-sm-6">
 			                						<label>Họ *</label>
 			                						<input class="form-control" name="ho" type="text" placeholder="Vui lòng nhập họ" value="{{ request.session.s_khach_hang.ho }}" required>
@@ -120,22 +127,24 @@
 			                			</form>
 								    </div><!-- .End .tab-pane -->
 
-								    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+								    <div class="tab-pane fade tab-account {{pass_status}}" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
 										
-										
-
 										<h5>Đổi mật khẩu</h5>
 										<form method="post">
 											{% csrf_token %}
+											
 											<div class="row">
 												<div class="col-md-12">
-													{{ frm_doi_mat_khau.mat_khau_hien_tai }}
+													{{ chuoi_kq_change_pass|safe }}
+												</div>
+												<div class="col-md-12">
+													{{ form.mat_khau_hien_tai }}
 												</div>
 												<div class="col-md-6">
-													{{ frm_doi_mat_khau.mat_khau }}
+													{{ form.mat_khau }}
 												</div>
 												<div class="col-md-6">
-													{{ frm_doi_mat_khau.xac_nhan_mat_khau }}
+													{{ form.xac_nhan_mat_khau }}
 												</div>
 												<div class="col-md-12">
 													<button class="btn btn-outline-primary-2" type="submit" name="btnChangePass" value="Đổi mật khẩu">Đổi mật khẩu</button>

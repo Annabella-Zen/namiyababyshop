@@ -92,6 +92,13 @@ def my_account(request):
     # Giỏ hàng
     cart = Cart(request)
 
+    chuoi_kq_change_pass = '';
+    chuoi_kq_change_diachi = '';
+
+    orders_status = ' show active ';
+    address_status = '';
+    pass_status = '';
+
     # Kiểm tra session xem khách hàng đã đăng nhập chưa?
     if 's_khach_hang' not in request.session:
         return redirect('customer:my-account/')
@@ -119,46 +126,70 @@ def my_account(request):
         s_khach_hang['dien_thoai'] = dien_thoai
         s_khach_hang['dia_chi'] = dia_chi
 
+        orders_status = '';
+        address_status = ' show active ';
+        pass_status = '';
 
+        chuoi_kq_change_diachi = '''
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Cập nhật thành công.
+                    </div>
+                    '''
 
-
-     # Đổi mật khẩu
-    frm_doi_mat_khau = FormDoiMatKhau()
-    chuoi_kq_doi_mat_khau = ''
+    # Đổi mật khẩu
+    form = FormDoiMatKhau()
+    
     if request.POST.get('btnChangePass'):
-        frm_doi_mat_khau = FormDoiMatKhau(request.POST, KhachHang)
+        form = FormDoiMatKhau(request.POST, KhachHang)
         
-        # Gán biến
-        mat_khau = request.POST.get('mat_khau_hien_tai')
+        print("Test123");
+        orders_status = '';
+        address_status = '';
+        pass_status = ' show active ';
 
-        # Check mật khẩu == xác nhận mật khẩu
-        if frm_doi_mat_khau.is_valid() and frm_doi_mat_khau.cleaned_data['mat_khau'] == frm_doi_mat_khau.cleaned_data['xac_nhan_mat_khau']:
-            
+        if form.is_valid():
 
-            hasher = Argon2PasswordHasher() 
-            request.POST.__mutable = True
-
+            mat_khau_hien_tai = form.cleaned_data['mat_khau_hien_tai']
             s_khach_hang = request.session.get('s_khach_hang')
             khach_hang = KhachHang.objects.get(id=s_khach_hang['id'])
-            khach_hang.mat_khau_hien_tai = frm_doi_mat_khau.cleaned_data['mat_khau']
-            khach_hang.mat_khau = frm_doi_mat_khau.cleaned_data['mat_khau']
-            
-            if KhachHang.objects.filter(mat_khau=khach_hang.mat_khau_hien_tai):
-                # return render(request, 'store/login_error.html')
-                chuoi_kq_doi_mat_khau = 'Thay đổi mật khẩu không thành công'
+
+            hasher = Argon2PasswordHasher()
+            encoded = hasher.encode(mat_khau_hien_tai, '12345678')
+
+            if encoded == khach_hang.mat_khau:
+                if form.cleaned_data['mat_khau'] == form.cleaned_data['xac_nhan_mat_khau']:
+                    
+                    print('change pass')
+                    khach_hang.mat_khau = hasher.encode(form.cleaned_data['mat_khau'], '12345678')
+                    khach_hang.save()
+
+                    chuoi_kq_change_pass = '''
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Cập nhật thành công.
+                    </div>
+                    '''
+                else:
+                    chuoi_kq_change_pass = '''
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Mật khẩu xác nhận không đúng. Vui lòng nhập lại!
+                    </div>
+                    '''
             else:
-                khach_hang.mat_khau = hasher.encode(frm_doi_mat_khau.cleaned_data['mat_khau'], '12345678')
 
-                khach_hang.save()
-                
-                # Cập nhật vào session hiện tại
-                s_khach_hang['mat_khau'] = mat_khau
-                chuoi_kq_doi_mat_khau = 'Thay đổi mật khẩu thành công'
-
+                chuoi_kq_change_pass = '''
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Mật khẩu không đúng. Vui lòng nhập lại!
+                    </div>
+                    '''
+    
     return render(request, 'store/my-account.html', {
-        'frm_doi_mat_khau': frm_doi_mat_khau,
-        'chuoi_kq_doi_mat_khau': chuoi_kq_doi_mat_khau,
-        'cart': cart
+        'cart': cart,
+        'form': form,
+        'chuoi_kq_change_pass': chuoi_kq_change_pass,
+        'chuoi_kq_change_diachi' : chuoi_kq_change_diachi,
+        'address_status':address_status,
+        'orders_status':orders_status,
+        'pass_status':pass_status
     })
 
 
