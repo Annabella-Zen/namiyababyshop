@@ -119,25 +119,46 @@ def my_account(request):
         s_khach_hang['dien_thoai'] = dien_thoai
         s_khach_hang['dia_chi'] = dia_chi
 
-    # Đổi mật khẩu
-    form = FormDoiMatKhau()
+
+
+
+     # Đổi mật khẩu
+    frm_doi_mat_khau = FormDoiMatKhau()
+    chuoi_kq_doi_mat_khau = ''
     if request.POST.get('btnChangePass'):
-        form = FormDoiMatKhau(request.POST, KhachHang)
-        if form.is_valid():
-            mat_khau_hien_tai = form.cleaned_data['mat_khau_hien_tai']
+        frm_doi_mat_khau = FormDoiMatKhau(request.POST, KhachHang)
+        
+        # Gán biến
+        mat_khau = request.POST.get('mat_khau_hien_tai')
+
+        # Check mật khẩu == xác nhận mật khẩu
+        if frm_doi_mat_khau.is_valid() and frm_doi_mat_khau.cleaned_data['mat_khau'] == frm_doi_mat_khau.cleaned_data['xac_nhan_mat_khau']:
+            
+
+            hasher = Argon2PasswordHasher() 
+            request.POST.__mutable = True
+
             s_khach_hang = request.session.get('s_khach_hang')
             khach_hang = KhachHang.objects.get(id=s_khach_hang['id'])
+            khach_hang.mat_khau_hien_tai = frm_doi_mat_khau.cleaned_data['mat_khau']
+            khach_hang.mat_khau = frm_doi_mat_khau.cleaned_data['mat_khau']
+            
+            if KhachHang.objects.filter(mat_khau=khach_hang.mat_khau_hien_tai):
+                # return render(request, 'store/login_error.html')
+                chuoi_kq_doi_mat_khau = 'Thay đổi mật khẩu không thành công'
+            else:
+                khach_hang.mat_khau = hasher.encode(frm_doi_mat_khau.cleaned_data['mat_khau'], '12345678')
 
-            hasher = Argon2PasswordHasher()
-            encoded = hasher.encode(mat_khau_hien_tai, '12345678')
-
-            if encoded == khach_hang.mat_khau:
-                if form.cleaned_data['mat_khau'] == form.cleaned_data['xac_nhan_mat_khau']:
-                    print('change pass')
+                khach_hang.save()
+                
+                # Cập nhật vào session hiện tại
+                s_khach_hang['mat_khau'] = mat_khau
+                chuoi_kq_doi_mat_khau = 'Thay đổi mật khẩu thành công'
 
     return render(request, 'store/my-account.html', {
-        'cart': cart,
-        'form': form,
+        'frm_doi_mat_khau': frm_doi_mat_khau,
+        'chuoi_kq_doi_mat_khau': chuoi_kq_doi_mat_khau,
+        'cart': cart
     })
 
 

@@ -1,0 +1,21 @@
+{% extends 'store/_Master.html' %}
+{% block title_tab %}Namiya - Baby Store | Tài khoản của tôi {% endblock %}
+{% load static %}
+{% load humanize %}
+{% block main_content %}
+
+        <main class="main">
+
+        	<div class="error-content text-center" style="background-image: url(assets/images/backgrounds/error-bg.jpg)">
+            	<div class="container">
+            		<h1 class="error-title">Success!</h1><!-- End .error-title -->
+            		<p>Bạn đã đổi mật khẩu thành công</p>
+            		
+                    <div class="btn btn-outline-primary-2">
+                        <a href="{% url 'store:index' %}">Quay về trang chủ</a>
+                    </div>
+            	</div><!-- End .container -->
+        	</div><!-- End .error-content text-center -->
+        </main><!-- End .main -->
+        
+{% endblock %}
